@@ -338,7 +338,7 @@ class User(TodoistObject):
         >>> user.update()
         >>> # Now the name has been updated on Todoist.
         """
-        args = {attr: getattr(self, attr) for attr in self.to_update}
+        args = dict([(attr, getattr(self, attr)) for attr in self.to_update])
         _perform_command(self, 'user_update', args)
 
     def sync(self, resource_types='["all"]'):
@@ -436,7 +436,7 @@ class User(TodoistObject):
             'indent': indent,
             'order': order
         }
-        args = {k: args[k] for k in args if args[k] is not None}
+        args = dict([(k, args[k]) for k in args if args[k] is not None])
         _perform_command(self, 'project_add', args)
         return self.get_project(name)
 
@@ -960,7 +960,7 @@ class Project(TodoistObject):
         >>> project.update()
         ... # Now the name has been updated on Todoist.
         """
-        args = {attr: getattr(self, attr) for attr in self.to_update}
+        args = dict([(attr, getattr(self, attr)) for attr in self.to_update])
         args['id'] = self.id
         _perform_command(self.owner, 'project_update', args)
 
@@ -1270,7 +1270,7 @@ class Task(TodoistObject):
         >>> task.update()
         ... # Now the content has been updated on Todoist.
         """
-        args = {attr: getattr(self, attr) for attr in self.to_update}
+        args = dict([(attr, getattr(self, attr)) for attr in self.to_update])
         args['id'] = self.id
         _perform_command(self.project.owner, 'item_update', args)
 
@@ -1508,7 +1508,7 @@ class Note(TodoistObject):
         >>> note.update()
         ... # Now the content has been updated on Todoist.
         """
-        args = {attr: getattr(self, attr) for attr in self.to_update}
+        args = dict([(attr, getattr(self, attr)) for attr in self.to_update])
         args['id'] = self.id
         owner = self.task.project.owner
         _perform_command(owner, 'note_update', args)
@@ -1572,7 +1572,7 @@ class Label(TodoistObject):
         >>> label.update()
         ... # Now the name has been updated on Todoist.
         """
-        args = {attr: getattr(self, attr) for attr in self.to_update}
+        args = dict([(attr, getattr(self, attr)) for attr in self.to_update])
         args['id'] = self.id
         _perform_command(self.owner, 'label_update', args)
 
@@ -1627,7 +1627,7 @@ class Filter(TodoistObject):
         >>> overdue_filter.update()
         ... # Now the name has been updated on Todoist.
         """
-        args = {attr: getattr(self, attr) for attr in self.to_update}
+        args = dict([(attr, getattr(self, attr)) for attr in self.to_update])
         args['id'] = self.id
         _perform_command(self.owner, 'filter_update', args)
 
